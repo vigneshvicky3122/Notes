@@ -21,7 +21,7 @@ router.use(
 
 RedisClient.connect()
   .then(() => {
-    console.log(`Redis Connection Successful @ redis://127.0.0.1:6379`);
+    console.log("Redis Connection Successful");
   })
   .catch((err) => {
     console.log(err);
