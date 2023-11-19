@@ -17,5 +17,8 @@
   },
   "scripts": {
     "server": "nodemon index.js"
+  },
+  "engines": {
+    "node": ">=16.20.1"
   }
 }
