@@ -16,7 +16,7 @@
     "redis": "^4.6.10"
   },
   "scripts": {
-    "server": "nodemon index.js"
+    "start": "node index"
   },
   "engines": {
     "node": ">=16.20.1"
