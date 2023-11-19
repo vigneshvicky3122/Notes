@@ -107,11 +107,11 @@ router.post("/add-task", authentication, async (req, res) => {
       .find({ _id: new ObjectId(req.headers.user_id) })
       .toArray();
     await RedisClient.del(`key-${req.headers.user_id}`);
-    await RedisClient.set(
+    let Redis = await RedisClient.set(
       `key-${req.headers.user_id}`,
       JSON.stringify(getTask)
     );
-    if (Tasks) {
+    if (Redis) {
       res.json({
         statusCode: 200,
         message: "New Task Added",
@@ -155,11 +155,11 @@ router.put("/task-status/:id", authentication, async (req, res) => {
       .find({ _id: new ObjectId(req.headers.user_id) })
       .toArray();
     await RedisClient.del(`key-${req.headers.user_id}`);
-    await RedisClient.set(
+    let Redis = await RedisClient.set(
       `key-${req.headers.user_id}`,
       JSON.stringify(getTask)
     );
-    if (Tasks) {
+    if (Redis) {
       res.json({
         statusCode: 200,
         message: "Task Completed",
@@ -203,11 +203,11 @@ router.put("/reassign/:id", authentication, async (req, res) => {
       .find({ _id: new ObjectId(req.headers.user_id) })
       .toArray();
     await RedisClient.del(`key-${req.headers.user_id}`);
-    await RedisClient.set(
+    let Redis = await RedisClient.set(
       `key-${req.headers.user_id}`,
       JSON.stringify(getTask)
     );
-    if (Tasks) {
+    if (Redis) {
       res.json({
         statusCode: 200,
         message: "Task Re-assigned",
@@ -251,11 +251,11 @@ router.put("/update-task/:id", authentication, async (req, res) => {
       .find({ _id: new ObjectId(req.headers.user_id) })
       .toArray();
     await RedisClient.del(`key-${req.headers.user_id}`);
-    await RedisClient.set(
+    let Redis = await RedisClient.set(
       `key-${req.headers.user_id}`,
       JSON.stringify(getTask)
     );
-    if (Tasks) {
+    if (Redis) {
       res.json({
         statusCode: 200,
         message: "Updated Successful",
@@ -292,11 +292,11 @@ router.post("/signup", async (req, res) => {
         let user = await db
           .collection(process.env.DB_COLLECTION_ONE)
           .insertOne(req.body);
-        let RDB = await RedisClient.set(
+        let Redis = await RedisClient.set(
           `key-${user.insertedId}`,
           JSON.stringify(req.body)
         );
-        if (RDB) {
+        if (Redis) {
           res.json({
             statusCode: 200,
             message: "Signup successful",
@@ -492,11 +492,11 @@ router.put("/password-reset/:id", async (req, res) => {
             .find({ _id: new ObjectId(req.params.id) })
             .toArray();
           await RedisClient.del(`key-${req.params.id}`);
-          await RedisClient.set(
+          let Redis = await RedisClient.set(
             `key-${req.params.id}`,
             JSON.stringify(getTask)
           );
-          if (update) {
+          if (Redis) {
             res.json({
               statusCode: 200,
               message: "Password changed successfully",
@@ -554,11 +554,11 @@ router.delete("/delete-task/:id", authentication, async (req, res) => {
       .find({ _id: new ObjectId(req.headers.user_id) })
       .toArray();
     await RedisClient.del(`key-${req.headers.user_id}`);
-    await RedisClient.set(
+    let Redis = await RedisClient.set(
       `key-${req.headers.user_id}`,
       JSON.stringify(getTask)
     );
-    if (Tasks) {
+    if (Redis) {
       res.json({
         statusCode: 200,
         message: "Task Deleted",
